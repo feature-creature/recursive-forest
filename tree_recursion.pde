@@ -21,15 +21,19 @@ void setup() {
 
 void draw() {
     background(0);
+    
+    // input updates
     mouseMapX = map(mouseX, 0, width, mouseMapXMax, mouseMapXMin);
     mouseMapY = map(mouseY, 0, height, mouseMapYMin, mouseMapYMax);
 
     // tree begins at bottom center
+    pushMatrix();
     translate(width/2, height);
-    branch(mouseMapY, mouseMapX);
+    branch(mouseMapY, mouseMapX, 0.5);
+    popMatrix();
 }
 
-void branch(float branchLength, float branchLengthMin) {
+void branch(float branchLength, float branchLengthMin, float branchLengthDivision) {
 
     // current iteration's branch (parent)
     strokeWeight(branchLength/10);
@@ -41,7 +45,7 @@ void branch(float branchLength, float branchLengthMin) {
     translate(0, -branchLength);
 
     // half the branch length for the next iteration
-    branchLength *= 0.5;
+    branchLength *= branchLengthDivision;
 
     // execute next iteration 
     // draw (child) branches or leaves (end child)
@@ -50,13 +54,13 @@ void branch(float branchLength, float branchLengthMin) {
         // right branch
         pushMatrix();
         rotate(PI*0.25);
-        branch(branchLength, branchLengthMin);
+        branch(branchLength, branchLengthMin, branchLengthDivision);
         popMatrix();
 
         // left branch
         pushMatrix();
         rotate(-PI*0.25);
-        branch(branchLength, branchLengthMin);
+        branch(branchLength, branchLengthMin, branchLengthDivision);
         popMatrix();
 
     } else {
