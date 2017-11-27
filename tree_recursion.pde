@@ -72,10 +72,20 @@ void branchManipulation(float branchLength, float branchLengthMin, float branchL
 }
 
 void branchVisual(float branchLength) {
+    pushStyle();
+    // style
     strokeWeight(branchLength/10);
+    stroke(255,branchLength);
+    // shape
     line(0, 0, 0, -branchLength);
+    popStyle();
 }
 
 void endVisual() {
+    pushStyle();
+    // style
+    stroke(255);
+    // shape
     ellipse(0, 0, 4, 4);
+    popStyle();
 }
