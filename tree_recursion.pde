@@ -16,17 +16,20 @@ ControlP5 cp5;
 // declare global variables
 int controlHeight;
 int subControlWidth;
+
 int locationXSliderValue;
 float sliderMapValue;
+
 int branchNumSliderValue;
 int branchNum;
+
 float branchLengthDivisionSliderValue;
 int branchLengthSliderValue;
 float branchLengthMinSliderValue;
 
 void setup() {
     // initialize window settings
-    size(800, 450);
+    size(850, 450);
     background(0);
     stroke(255);
 
@@ -70,7 +73,7 @@ void setup() {
     cp5.addSlider("branchLengthMinSliderValue")
         .setPosition(2*subControlWidth, height - controlHeight)
         .setSize(subControlWidth, 15)
-        .setRange(50, 4.0)
+        .setRange(4.0,50)
         .setValue(25.0)
         .setLabel("");;
 
@@ -99,6 +102,13 @@ void draw() {
     translate(sliderMapValue, height - controlHeight);
     branch(branchLengthSliderValue, branchLengthMinSliderValue, branchLengthDivisionSliderValue, branchNum);
     popMatrix();
+    
+    // ground
+    pushStyle();
+    fill(255);
+    stroke(255);
+    rect(0,height-30,width,height);
+    popStyle();
 }
 
 void branch(float branchLength, float branchLengthMin, float branchLengthDivision, float numOfBranches) {
@@ -153,8 +163,15 @@ void branchVisual(float branchLength) {
 void endVisual() {
     pushStyle();
     // style
-    stroke(255);
+    stroke(255,60);
+    fill(255,175);
     // shape
     ellipse(0, 0, 4, 4);
     popStyle();
+}
+
+void keyPressed(){
+    if(key == 's'){
+        saveFrame("frames/"+ millis() + "_" + frameCount + ".tif");
+    }
 }
